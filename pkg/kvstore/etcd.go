@@ -568,7 +568,6 @@ func (e *etcdClient) renewSession(ctx context.Context) error {
 	//  - The above call to sessionCancel() cancels the session due to the
 	//  session ending and requiring renewal.
 	sessionContext, sessionCancel, sessionSuccess := contexthelpers.NewConditionalTimeoutContext(ctx, statusCheckTimeout)
-	defer close(sessionSuccess)
 
 	newSession, err := concurrency.NewSession(
 		e.client,
@@ -630,7 +629,6 @@ func (e *etcdClient) renewLockSession(ctx context.Context) error {
 	//  - The above call to sessionCancel() cancels the session due to the
 	//  session ending and requiring renewal.
 	sessionContext, sessionCancel, sessionSuccess := contexthelpers.NewConditionalTimeoutContext(ctx, statusCheckTimeout)
-	defer close(sessionSuccess)
 
 	newSession, err := concurrency.NewSession(
 		e.client,
