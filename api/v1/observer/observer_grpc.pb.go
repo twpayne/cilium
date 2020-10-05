@@ -11,7 +11,7 @@ import (
 
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
-const _ = grpc.SupportPackageIsVersion6
+const _ = grpc.SupportPackageIsVersion7
 
 // ObserverClient is the client API for Observer service.
 //
@@ -86,11 +86,18 @@ type ObserverServer interface {
 type UnimplementedObserverServer struct {
 }
 
-func (*UnimplementedObserverServer) GetFlows(*GetFlowsRequest, Observer_GetFlowsServer) error {
+func (UnimplementedObserverServer) GetFlows(*GetFlowsRequest, Observer_GetFlowsServer) error {
 	return status.Errorf(codes.Unimplemented, "method GetFlows not implemented")
 }
-func (*UnimplementedObserverServer) ServerStatus(context.Context, *ServerStatusRequest) (*ServerStatusResponse, error) {
+func (UnimplementedObserverServer) ServerStatus(context.Context, *ServerStatusRequest) (*ServerStatusResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ServerStatus not implemented")
+}
+
+// UnsafeObserverServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ObserverServer will
+// result in compilation errors.
+type UnsafeObserverServer interface {
+	mustEmbedUnimplementedObserverServer()
 }
 
 func RegisterObserverServer(s *grpc.Server, srv ObserverServer) {
